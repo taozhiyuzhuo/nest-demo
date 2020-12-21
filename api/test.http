@@ -1,0 +1,22 @@
+## 创建用户
+POST http://localhost:3000/user
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NTIiL
+
+
+{
+"username": "test1",
+"password":"test1"
+}
+
+###更新用户
+PATCH http://localhost:3000/user/1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NTIiL
+
+{
+"username": "update",
+"password":"test1"
+}
+
+###
