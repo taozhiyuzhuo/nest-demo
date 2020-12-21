@@ -19,4 +19,14 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NTIiL
 "password":"test1"
 }
 
+### 获取user list
+GET http://localhost:3000/user/
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NTIiL
+
+### 获取user
+GET http://localhost:3000/user/1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1NTIiL
+
 ###

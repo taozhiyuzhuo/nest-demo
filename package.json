@@ -30,12 +30,14 @@
     "@nestjsx/crud": "^4.6.2",
     "@nestjsx/crud-typeorm": "^4.6.2",
     "class-transformer": "^0.3.1",
+    "ioredis": "^4.19.4",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
+    "type-cacheable": "^4.1.2",
     "typeorm": "^0.2.29"
   },
   "devDependencies": {

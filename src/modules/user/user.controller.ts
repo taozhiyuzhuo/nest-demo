@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Patch, Post, Put, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put, UseInterceptors } from '@nestjs/common';
 import { Crud } from '@nestjsx/crud';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { user } from '@/modules/user/entities/user.entity';
@@ -6,6 +6,8 @@ import { OperationLog } from '@/decorators/operation-log.decorator';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OperationLogInterceptor } from '@/interceptors/operation-log.interceptor';
+import { Cacheable } from 'type-cacheable';
+import { UserService } from '@/modules/user/user.service';
 
 @Crud({
   model: {
@@ -17,7 +19,10 @@ import { OperationLogInterceptor } from '@/interceptors/operation-log.intercepto
 @Controller('user')
 @UseInterceptors(OperationLogInterceptor)
 export class UserController {
-  constructor(@InjectRepository(user) private repo: Repository<user>) {
+  constructor(
+    private readonly userService: UserService,
+    @InjectRepository(user) private repo: Repository<user>,
+  ) {
   }
 
   @Post('/')
@@ -30,9 +35,16 @@ export class UserController {
   @Patch(':id')
   @OperationLog('修改用户')
   async update(@Param('id') id: string, @Body() dto) {
-    const user = await this.repo.findOne(id);
-    user.username = dto.username;
-    user.password = dto.password;
-    return await user.save()
+    return this.userService.updateOne(id, dto);
+  }
+
+  @Get('')
+  async findAll() {
+    return this.userService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return this.userService.findOne(id);
   }
 }

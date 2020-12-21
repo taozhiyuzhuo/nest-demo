@@ -4,6 +4,7 @@ import { OperationLogModule } from '@/modules/operation-log/operation-log.module
 import { UserModule } from '@/modules/user/user.module';
 import { JwtGuard } from '@/guards/jwt.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { RedisCacheService } from '@/common/redis-cache.service';
 
 @Module({
   imports: [
@@ -13,15 +14,18 @@ import { APP_GUARD } from '@nestjs/core';
       subscribers: ['src/**/*.subscriber{.ts,.js}'],
       url: process.env.DATABASE_URL || 'postgres://localhost:5432/nest-demo',
       synchronize: true,
-      logging:true
+      logging: true,
     }),
     OperationLogModule,
     UserModule,
   ],
-  providers: [{
-    provide: APP_GUARD,
-    useClass: JwtGuard,
-  }],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtGuard,
+    },
+    RedisCacheService,
+  ],
 })
 export class AppModule {
 }
